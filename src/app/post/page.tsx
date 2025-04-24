@@ -28,7 +28,7 @@ export default async function PostPage() {
 
   return (
     <div>
-      <h1 className='text-3xl'>Post Page</h1>
+      <h1 className='text-3xl my-2'>Post Page</h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
         {data.map((post: Post) => (
           <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
