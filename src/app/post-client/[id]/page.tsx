@@ -18,28 +18,33 @@ export default function PostById() {
     console.log(id);
 
     useEffect(() => {
-        async function getData() {
-            const res = await fetch('https://jsonplaceholder.typicode.com/posts/' + id);
-            const data = await res.json();
-            console.log(data);
-            setData(data);
+        try {
+            async function getData() {
+                const res = await fetch('https://jsonplaceholder.typicode.com/posts/' + id);
+                const data = await res.json();
+                console.log(data);
+                setData(data);
+            }
+            getData();
+        } catch (error) {
+            console.log(error)
         }
-        getData();
     }, [id])
-
-    if (!data) {
-        return 'Data Not Found.';
-    }
 
     return (
         <div>
             <h1 className='text-3xl'>Post ID is {id}</h1>
-            <div className='p-2 w-8/10 mx-auto mt-2 border-1'>
-                <h1 className='text-3xl'>{data.title}</h1>
-                <p className='mt-4'>
-                    {data.body}
-                </p>
-            </div>
+            {
+                data &&
+                (
+                    <div className='p-2 w-8/10 mx-auto mt-2 border-1'>
+                        <h1 className='text-3xl'>{data.title}</h1>
+                        <p className='mt-4'>
+                            {data.body}
+                        </p>
+                    </div>
+                )
+            }
         </div>
     )
 }
