@@ -9,7 +9,6 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
                 id: parseInt(id)
             }
         });
-        console.log(post);
 
         return NextResponse.json(post);
     } catch (error) {

@@ -26,6 +26,19 @@ async function getData() {
   }
 }
 
+// async function getData() {
+//   try {
+//     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts`);
+//     if(!res){
+//       throw new Error('Failed to fetch data');
+//     }
+//     const data = await res.json();
+//     return data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
+
 export default async function PostPage() {
 
   const data = await getData();
@@ -33,6 +46,13 @@ export default async function PostPage() {
   return (
     <div>
       <h1 className='text-3xl my-2'>Post Page</h1>
+      <div>
+        <button className='px-4 py-2 border-1 mb-1'>
+          <Link href={'/post/create'}>
+            Create Post +
+          </Link>
+        </button>
+      </div>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
         {
           data &&

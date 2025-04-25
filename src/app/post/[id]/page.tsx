@@ -1,8 +1,13 @@
 import React from 'react'
 
 async function getDataById(id: string) {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`);
-    return response.json();
+    try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export default async function PostById({ params }: { params: Promise<{ id: string }> }) {
@@ -10,7 +15,6 @@ export default async function PostById({ params }: { params: Promise<{ id: strin
     const id = (await params).id;
 
     const data = await getDataById(id);
-    console.log(data);
 
     return (
         <div>
@@ -18,7 +22,7 @@ export default async function PostById({ params }: { params: Promise<{ id: strin
             <div className='p-2 w-8/10 mx-auto mt-2 border-1'>
                 <h1 className='text-3xl'>{data.title}</h1>
                 <p className='mt-4'>
-                    {data.body}
+                    {data.content}
                 </p>
             </div>
         </div>
