@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react'
+import prisma from '../lib/db';
 
 export const metadata: Metadata = {
   title: "Workshop - Post",
@@ -10,15 +11,16 @@ export const metadata: Metadata = {
 interface Post {
   id: number
   title: string
-  content: string
+  content: string | null
+  createdAt: Date
+  updatedAt: Date
 }
 
 //Server Side Fetching
 async function getData() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts`);
-    const data = await response.json();
-    return data; 
+    const posts = await prisma.post.findMany();
+    return posts;
   } catch (error) {
     console.log(error);
   }
@@ -30,17 +32,18 @@ export default async function PostPage() {
 
   return (
     <div>
-      {await new Promise((resolve) => setTimeout(resolve, 2000))}
       <h1 className='text-3xl my-2'>Post Page</h1>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2'>
-        {data.map((post: Post) => (
-          <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
-            <h1>{post.id}</h1>
-            <h1 className='text-xl'>{post.title}</h1>
-            <p>{post.content}</p>
-            <Link href={`/post/${post.id}`} className='px-2 py-3 border-1 mt-4'>อ่านเพิ่ม...</Link>
-          </div>
-        ))}
+        {
+          data &&
+          data.map((post: Post) => (
+            <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
+              <h1>{post.id}</h1>
+              <h1 className='text-xl'>{post.title}</h1>
+              <p>{post.content}</p>
+              <Link href={`/post/${post.id}`} className='px-2 py-3 border-1 mt-4'>อ่านเพิ่ม...</Link>
+            </div>
+          ))}
       </div>
     </div>
   )
