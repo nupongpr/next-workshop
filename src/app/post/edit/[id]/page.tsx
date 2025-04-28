@@ -15,7 +15,6 @@ export default async function EditPageById({ params }: { params: Promise<{ id: s
 
     const id = (await params).id;
     const data = await getDataById(id);
-    console.log(data);
 
     return (
         <>

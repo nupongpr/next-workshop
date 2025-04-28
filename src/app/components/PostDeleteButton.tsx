@@ -30,7 +30,7 @@ export default function PostDeleteButton({ id }: { id: number }) {
 
     return (
         <>
-            <button className='ms-1 py-2 px-2 border-1 bg-red-100 cursor-pointer' onClick={handleDelete}>Del</button>
+            <button className='ms-1 px-2 py-2 border-1 bg-red-100 cursor-pointer' onClick={handleDelete}>Del</button>
         </>
     )
 }

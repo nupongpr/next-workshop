@@ -1,4 +1,5 @@
 "use client"
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { z } from 'zod';
@@ -19,7 +20,6 @@ export default function CreateForm() {
         const data = new FormData(e.currentTarget);
         const title = data.get('title');
         const content = data.get('content');
-        console.log(title,content);
 
         const result = postValidate.safeParse({ title, content });
         if(!result.success) {
@@ -39,7 +39,6 @@ export default function CreateForm() {
                 body: JSON.stringify({ title, content })
             });
             const result = await res.json();
-            console.log(result);
 
             if(!res.ok) {
                 throw new Error(result.message);
@@ -68,6 +67,9 @@ export default function CreateForm() {
                     <p className='text-red-500'>{error ? error.content : ''}</p>
                     <div className='flex justify-center mt-2'>
                         <button className='border-1 px-4 py-2 bg-blue-200 rounded-2xl hover:bg-blue-400 cursor-pointer' type='submit'>Submit</button>
+                        <button className='border-1 px-4 py-2 ms-2 bg-red-200 rounded-2xl hover:bg-red-400 cursor-pointer'>
+                            <Link href={'/post'}>Cancel</Link>
+                        </button>
                     </div>
                 </form>
             </div>

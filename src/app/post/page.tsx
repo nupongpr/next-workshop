@@ -19,6 +19,7 @@ interface Post {
 }
 
 //Server Side Fetching
+//Psima function
 // async function getData() {
 //   try {
 //     const posts = await prisma.post.findMany();
@@ -27,11 +28,11 @@ interface Post {
 //     console.log(error);
 //   }
 // }
-
+//API Fetch
 async function getData() {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts`);
-    if(!res){
+    if (!res) {
       throw new Error('Failed to fetch data');
     }
     const data = await res.json();
@@ -62,8 +63,10 @@ export default async function PostPage() {
             <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
               <h1>{post.id}</h1>
               <div className='text-end'>
-                <Link href={`/post/edit/${post.id}`} className='px-2 py-2 border-1 bg-blue-100'>Edit</Link>
-                <PostDeleteButton id={post.id}/>
+                <button className='px-2 py-2 border-1 bg-blue-100 cursor-pointer'>
+                  <Link href={`/post/edit/${post.id}`}>Edit</Link>
+                </button>
+                <PostDeleteButton id={post.id} />
               </div>
               <h1 className='text-xl'>{post.title}</h1>
               <p>{post.content}</p>
