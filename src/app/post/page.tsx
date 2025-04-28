@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react'
+import PostDeleteButton from '../components/PostDeleteButton';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,6 +61,10 @@ export default async function PostPage() {
           data.map((post: Post) => (
             <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
               <h1>{post.id}</h1>
+              <div className='text-end'>
+                <Link href={`/post/edit/${post.id}`} className='px-2 py-2 border-1 bg-blue-100'>Edit</Link>
+                <PostDeleteButton id={post.id}/>
+              </div>
               <h1 className='text-xl'>{post.title}</h1>
               <p>{post.content}</p>
               <Link href={`/post/${post.id}`} className='px-2 py-3 border-1 mt-4'>อ่านเพิ่ม...</Link>
