@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react'
-import prisma from '../lib/db';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: "Workshop - Post",
@@ -17,27 +18,27 @@ interface Post {
 }
 
 //Server Side Fetching
-async function getData() {
-  try {
-    const posts = await prisma.post.findMany();
-    return posts;
-  } catch (error) {
-    console.log(error);
-  }
-}
-
 // async function getData() {
 //   try {
-//     const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts`);
-//     if(!res){
-//       throw new Error('Failed to fetch data');
-//     }
-//     const data = await res.json();
-//     return data;
+//     const posts = await prisma.post.findMany();
+//     return posts;
 //   } catch (error) {
 //     console.log(error);
 //   }
 // }
+
+async function getData() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/posts`);
+    if(!res){
+      throw new Error('Failed to fetch data');
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export default async function PostPage() {
 
