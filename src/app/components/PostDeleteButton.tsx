@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react'
 import { toast } from 'sonner';
 
-export default function PostDeleteButton({ id }: { id: number }) {
+export default function PostDeleteButton({ id, onDelete }: { id: number, onDelete?: () => void }) {
 
     const router = useRouter();
 
@@ -23,6 +23,7 @@ export default function PostDeleteButton({ id }: { id: number }) {
 
             toast.success("ลบข้อมูลสําเร็จ id = " + id);
             router.refresh();
+            onDelete?.();
         } catch (error) {
             console.log(error)
         }

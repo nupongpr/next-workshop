@@ -66,7 +66,7 @@ export default async function PostPage() {
                 <button className='px-2 py-2 border-1 bg-blue-100 cursor-pointer'>
                   <Link href={`/post/edit/${post.id}`}>Edit</Link>
                 </button>
-                <PostDeleteButton id={post.id} />
+                <PostDeleteButton id={post.id}/>
               </div>
               <h1 className='text-xl'>{post.title}</h1>
               <p>{post.content}</p>
