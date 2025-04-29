@@ -32,7 +32,7 @@ export default function RootLayout({
         <div className="px-2">
           {children}
         </div>
-        <Toaster position="top-right" closeButton/>
+        <Toaster position="top-right" closeButton richColors/>
       </body>
     </html>
   );

@@ -27,6 +27,12 @@ export default function Navbar() {
                     <h3>
                         <Link href={'/about'} className={pathname == '/about' ? 'text-blue-500' : ''}>About</Link>
                     </h3>
+                    <h3>
+                        <Link href={'/register'} className={pathname == '/register' ? 'text-blue-500' : ''}>Register</Link>
+                    </h3>
+                    <h3>
+                        <Link href={'/login'} className={pathname == '/login' ? 'text-blue-500' : ''}>Login</Link>
+                    </h3>
                 </div>
             </nav>
         </div>

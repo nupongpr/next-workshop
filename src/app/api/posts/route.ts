@@ -14,11 +14,12 @@ export async function GET() {
 export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
-        const title = body.title;
-        const content = body.content;
+        const title = body.title as string;
+        const content = body.content as string;
 
         const post = await prisma.post.create({
             data: {
+                userId: 1,
                 title: title,
                 content: content,
             }
