@@ -1,6 +1,7 @@
 import prisma from "@/app/lib/db";
 import { createSession } from "@/app/lib/session";
 import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 export async function POST(req: NextRequest) {
     try {
@@ -12,21 +13,30 @@ export async function POST(req: NextRequest) {
         const user = await prisma.user.findFirst({
             where: {
                 email: email,
-                password: password
             },
             select:{
                 id: true,
-                email: true
+                email: true,
+                role: true,
+                password: true
             }
         });
+
         // console.log(users);
         if(!user) {
             return NextResponse.json({ message: "User not found" }, {status: 404});
         }
 
+        const checkHash = await bcrypt.compare(password, user.password);
+
+        if(!checkHash) {
+            return NextResponse.json({ message: "Invalid password" }, {status: 401});
+        }
+
         await createSession({ 
             userId: user.id,
             email: user.email,
+            role: user.role
         });
 
         return NextResponse.json({ message: "You are logged in" }, {status: 200});

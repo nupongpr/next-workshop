@@ -27,6 +27,7 @@ export default function RegisterForm() {
       console.log(result);
 
       if (!res.ok) {
+        toast.error(result.message);
         throw new Error(result.message);
       }
 
@@ -42,11 +43,11 @@ export default function RegisterForm() {
       <form className='mt-4 border-1 px-4 py-6' onSubmit={(handleRegister)}>
         <div className='mt-2'>
           <label htmlFor="">Email: </label>
-          <input className='border-1 w-full' type="email" name='email' required />
+          <input className='border-1 w-full' type="email" name='email'/>
         </div>
         <div className='mt-2'>
           <label htmlFor="">Password: </label>
-          <input className='border-1 w-full' type="password" name='password' required />
+          <input className='border-1 w-full' type="password" name='password'/>
         </div>
         <div className='mt-4 text-center'>
           <button className='px-4 py-2 border-1 cursor-pointer'>Submit</button>

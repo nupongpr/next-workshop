@@ -1,7 +1,10 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import React from 'react'
-import PostDeleteButton from '../components/PostDeleteButton';
+// import PostDeleteButton from '../components/PostDeleteButton';
+import Image from 'next/image';
+// import { getSession } from '../lib/session';
+// import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
@@ -60,18 +63,34 @@ export default async function PostPage() {
         {
           data &&
           data.map((post: Post) => (
-            <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
-              <h1>{post.id}</h1>
-              <div className='text-end'>
-                <button className='px-2 py-2 border-1 bg-blue-100 cursor-pointer'>
-                  <Link href={`/post/edit/${post.id}`}>Edit</Link>
-                </button>
-                <PostDeleteButton id={post.id}/>
+            <div key={post.id} className="card bg-base-100 shadow-lg mb-2">
+              <figure>
+                <Image width={600} height={800}
+                  src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                  alt={post.title+'_image'} />
+              </figure>
+              <div className="card-body">
+                <h2 className="card-title">{post.title}</h2>
+                <p>
+                  {post.content}
+                </p>
+                <div className="card-actions justify-end">
+                  <Link href={`/post/${post.id}`} className='btn btn-primary'>อ่านเพิ่ม...</Link>
+                </div>
               </div>
-              <h1 className='text-xl'>{post.title}</h1>
-              <p>{post.content}</p>
-              <Link href={`/post/${post.id}`} className='px-2 py-3 border-1 mt-4'>อ่านเพิ่ม...</Link>
             </div>
+            // <div key={post.id} className='px-4 py-6 border-1 flex flex-col'>
+            //   <h1>{post.id}</h1>
+            //   <div className='text-end'>
+            //     <button className='px-2 py-2 border-1 bg-blue-100 cursor-pointer'>
+            //       <Link href={`/post/edit/${post.id}`}>Edit</Link>
+            //     </button>
+            //     <PostDeleteButton id={post.id} />
+            //   </div>
+            //   <h1 className='text-xl'>{post.title}</h1>
+            //   <p>{post.content}</p>
+            //   <Link href={`/post/${post.id}`} className='px-2 py-3 border-1 mt-4'>อ่านเพิ่ม...</Link>
+            // </div>
           ))}
       </div>
     </div>
